@@ -37,6 +37,13 @@ sizes 属性告诉浏览器在不同断点下图片会显示的尺寸
          900px"
   alt="响应式图片"
 >
+
+<img 
+  src="image-1x.jpg"
+  srcset="image-1x.jpg 1x,
+          image-2x.jpg 2x,
+          image-3x.jpg 3x"
+  alt="不同像素密度的响应式图片">
 ```
 
 
