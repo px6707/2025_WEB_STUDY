@@ -1,0 +1,3 @@
+[submodule "vue/source"]
+	path = vue/source
+	url = https://github.com/px6707/vue.git
