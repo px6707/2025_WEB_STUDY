@@ -1,0 +1,20 @@
+<div class="box"></div>
+<style>
+    .box {
+    width: 200px; height: 200px;
+    background: linear-gradient(to right bottom, deeppink 50%, transparent 50%),
+        linear-gradient(to top right, deeppink 50%, transparent 50%), 
+        darkblue;
+    background-blend-mode: multiply, screen;
+    position: relative;
+}
+/* 中间原始的deeppink色值 */
+.box::before {
+    content: '';
+    position: absolute;
+    width: 33%; height: 33%;
+    inset: 0;
+    margin: auto;
+    background-color: deeppink;
+}
+</style>
