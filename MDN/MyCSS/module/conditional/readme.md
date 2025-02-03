@@ -143,3 +143,14 @@ CSS条件规则模块定义CSS媒体并支持查询，使您能够定义仅在�
     
 }
 ```
+
+
+### @property 注册自定义属性
+```css
+@property --property-name {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #c0ffee;
+}
+
+```
