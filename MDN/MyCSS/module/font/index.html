@@ -1,0 +1,34 @@
+应用字距：<div id="kern"></div>
+不应用字距：<div id="nokern"></div>
+<textarea id="input">AV T. ij</textarea>
+
+<style>
+    div {
+  font-size: 2rem;
+  font-family: serif;
+}
+
+#nokern {
+  font-kerning: none;
+}
+
+#kern {
+  font-kerning: normal;
+}
+
+</style>
+
+<script>
+    var input = document.getElementById("input"),
+  kern = document.getElementById("kern"),
+  nokern = document.getElementById("nokern");
+
+input.addEventListener("keyup", function () {
+  kern.textContent = input.value; /* Update content */
+  nokern.textContent = input.value;
+});
+
+kern.textContent = input.value; /* Initialize content */
+nokern.textContent = input.value;
+
+</script>
