@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mask 概念演示</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 40px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo {
+            text-align: center;
+        }
+
+        /* 基础图片容器 */
+        .image-container {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+            position: relative;
+            background: white;
+        }
+
+        /* 内容层样式 */
+        .content-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        /* 底层：格子背景 */
+        .background-layer {
+            background-image: 
+                linear-gradient(45deg, #ddd 25%, transparent 25%),
+                linear-gradient(-45deg, #ddd 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #ddd 75%),
+                linear-gradient(-45deg, transparent 75%, #ddd 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        /* 中间层：图片 */
+        .image-layer {
+            background-image: url('https://picsum.photos/200');
+            background-size: cover;
+            opacity: 0.8;
+        }
+
+        /* 顶层：彩色渐变 */
+        .color-layer {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            opacity: 0.8;
+        }
+
+        /* 遮罩样式 */
+        /* 1. 完全显示（黑色遮罩） */
+        #mask-show {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='black'/%3E%3C/svg%3E");
+        }
+
+        /* 2. 完全隐藏（白色遮罩） */
+        #mask-hide {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='white'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='white'/%3E%3C/svg%3E");
+        }
+
+        /* 3. 半透明（灰色遮罩） */
+        #mask-semi {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='grey'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='grey'/%3E%3C/svg%3E");
+        }
+
+        /* 4. 左右分隔效果 */
+        #mask-split {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect x='0' y='0' width='100' height='200' fill='black'/%3E%3Crect x='100' y='0' width='100' height='200' fill='white'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect x='0' y='0' width='100' height='200' fill='black'/%3E%3Crect x='100' y='0' width='100' height='200' fill='white'/%3E%3C/svg%3E");
+        }
+
+        .mask-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 原始内容 -->
+        <div class="demo">
+            <div class="image-container">
+                <div class="content-layer background-layer"></div>
+                <div class="content-layer image-layer"></div>
+                <div class="content-layer color-layer"></div>
+            </div>
+            <div class="mask-text">原始内容（无遮罩）</div>
+        </div>
+
+        <!-- 完全显示 -->
+        <div class="demo">
+            <div class="image-container">
+                <div class="content-layer background-layer"></div>
+                <div class="content-layer image-layer"></div>
+                <div class="content-layer color-layer" id="mask-show"></div>
+            </div>
+            <div class="mask-text">黑色遮罩（完全显示顶层）</div>
+        </div>
+
+        <!-- 完全隐藏 -->
+        <div class="demo">
+            <div class="image-container">
+                <div class="content-layer background-layer"></div>
+                <div class="content-layer image-layer"></div>
+                <div class="content-layer color-layer" id="mask-hide"></div>
+            </div>
+            <div class="mask-text">白色遮罩（完全隐藏顶层）</div>
+        </div>
+
+        <!-- 半透明 -->
+        <div class="demo">
+            <div class="image-container">
+                <div class="content-layer background-layer"></div>
+                <div class="content-layer image-layer"></div>
+                <div class="content-layer color-layer" id="mask-semi"></div>
+            </div>
+            <div class="mask-text">灰色遮罩（顶层半透明）</div>
+        </div>
+
+        <!-- 左右分隔 -->
+        <div class="demo">
+            <div class="image-container">
+                <div class="content-layer background-layer"></div>
+                <div class="content-layer image-layer"></div>
+                <div class="content-layer color-layer" id="mask-split"></div>
+            </div>
+            <div class="mask-text">左黑右白（左显示右隐藏）</div>
+        </div>
+    </div>
+
+    <div style="padding: 20px;">
+        <h3>遮罩效果说明：</h3>
+        <ul>
+            <li>遮罩只应用于顶层的渐变层（color-layer）</li>
+            <li>黑色遮罩（值=1）：让顶层完全显示</li>
+            <li>白色遮罩（值=0）：让顶层完全隐藏，露出下面的图片和背景</li>
+            <li>灰色遮罩（值=0.5）：让顶层半透明显示</li>
+            <li>左右分隔：左边显示顶层，右边隐藏顶层</li>
+        </ul>
+    </div>
+</body>
+</html>
