@@ -49,6 +49,10 @@ list-style-type: disc;
 list-style: disc inside;
 ```
 
+### list-style-image
+```css
+list-style-image: url("../../media/examples/rocket.svg");
+```
 
 ### counter
 返回一个代表计数器的当前值的字符串。它通常和伪元素搭配使用，但是理论上可以在支持<string>值的任何地方使用。
@@ -199,3 +203,13 @@ ol {
 ![additive](./additive.png)
 - 可以看到 48 等于40+5 + 1 +1 +1 = XLVIII
 - 110 = 100 + 10 = CX
+
+
+### ::marker
+::marker CSS 伪元素匹配列表的标记框（通常为一个符号或数字）。它作用在任何设置了 display: list-item 的元素或伪元素上，例如 <li> 和 <summary> 元素。
+```css
+ul li::marker {
+  color: red;
+  font-size: 1.5em;
+}
+```
