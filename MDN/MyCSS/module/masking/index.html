@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clip Rule Demo</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+        .example {
+            text-align: center;
+        }
+        svg {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- nonzero 示例 -->
+        <div class="example">
+            <h3>nonzero 规则</h3>
+            <svg width="200" height="200">
+                <!-- 外部正方形（顺时针） -->
+                <path fill="blue" fill-rule="nonzero" d="
+                    M 50,50                 
+                    L 150,50               
+                    L 150,150              
+                    L 50,150                
+                    Z                      
+                    
+                    M 75,75                 
+                    L 75,125                
+                    L 125,125               
+                    L 125,75              
+                    Z                      
+                "/>
+            </svg>
+        </div>
+
+        <!-- evenodd 示例 -->
+        <div class="example">
+            <h3>evenodd 规则</h3>
+            <svg width="200" height="200">
+                <!-- 完全相同的路径，但使用 evenodd -->
+                <path fill="blue" fill-rule="evenodd" d="
+                    M 50,50
+                    L 150,50
+                    L 150,150
+                    L 50,150
+                    Z
+                    
+                    M 75,75
+                    L 75,125
+                    L 125,125
+                    L 125,75
+                    Z
+                "/>
+            </svg>
+        </div>
+    </div>
+
+    <div style="padding: 20px;">
+        <p><strong>解释：</strong></p>
+        <ul>
+            <li>两个示例都画了一个大正方形和一个小正方形</li>
+            <li>在 nonzero 规则下，内部正方形必须逆时针绘制才能挖空</li>
+            <li>在 evenodd 规则下，不管绘制方向，内部区域都会被挖空</li>
+        </ul>
+    </div>
+</body>
+</html>
