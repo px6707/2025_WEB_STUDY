@@ -1,0 +1,17 @@
+<div class="moving-element">
+
+</div>
+<style>
+    .moving-element {
+        width:20px;
+        height:20px;
+        background:red;
+    offset-path: circle(100px);
+    animation: move 3s linear infinite;
+    }
+
+@keyframes move {
+  0% { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+</style>
