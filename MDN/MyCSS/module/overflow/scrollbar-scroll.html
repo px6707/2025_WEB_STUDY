@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            width: 300px;
+            height: 200px;
+            border: 1px solid #ccc;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        .auto {
+            scrollbar-gutter: auto;
+            overflow: auto;
+        }
+
+        .stable {
+            scrollbar-gutter: stable;
+            overflow: auto;
+        }
+
+        .both-edges {
+            scrollbar-gutter: stable both-edges;
+            overflow: auto;
+        }
+
+        /* 添加切换内容的按钮样式 */
+        .toggle-btn {
+            margin: 10px;
+            padding: 5px 10px;
+        }
+
+        /* 内容样式 */
+        .content {
+            transition: height 0.3s;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+
+        .short {
+            height: 50px;
+        }
+
+        .tall {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="toggleContent('auto-content')" class="toggle-btn">切换 auto 内容</button>
+    <button onclick="toggleContent('stable-content')" class="toggle-btn">切换 stable 内容</button>
+    <button onclick="toggleContent('both-content')" class="toggle-btn">切换 both-edges 内容</button>
+
+    <div class="container auto">
+        <h3>auto（默认）</h3>
+        <div id="auto-content" class="content short">
+            这是默认的auto设置。点击按钮切换内容高度，观察布局变化。
+            当内容变高时，滚动条会占用内容空间，可能导致布局抖动。
+        </div>
+    </div>
+
+    <div class="container stable">
+        <h3>stable</h3>
+        <div id="stable-content" class="content short">
+            这是stable设置。即使内容不需要滚动，也会预留滚动条空间。
+            当内容变化时，布局保持稳定。
+        </div>
+    </div>
+
+    <div class="container both-edges">
+        <h3>both-edges</h3>
+        <div id="both-content" class="content short">
+            这是both-edges设置。在两边都预留滚动条空间，保持视觉对称。
+            适合需要对称布局的设计。
+        </div>
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('short');
+            content.classList.toggle('tall');
+        }
+    </script>
+</body>
+</html>

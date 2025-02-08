@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* 滚动容器样式 */
+        .scroll-container {
+            height: 300px;
+            width: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            /* 定义滚动时间轴 */
+            scroll-timeline-name: --story-scroll;
+            scroll-timeline-axis: block;
+        }
+
+        /* 内容样式 */
+        .content {
+            padding: 20px;
+            min-height: 1000px;
+        }
+
+        /* 进度指示器 */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: #eee;
+        }
+
+        .progress-indicator {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            /* 使用滚动时间轴创建动画 */
+            animation: progress-grow auto linear;
+            animation-timeline: --story-scroll;
+        }
+
+        @keyframes progress-grow {
+            from {
+                width: 0%;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* 滚动提示动画 */
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            opacity: 1;
+            /* 使用滚动时间轴控制提示的显示/隐藏 */
+            animation: fadeoutanimation auto linear;
+            animation-timeline: --story-scroll;
+        }
+
+        @keyframes fadeoutanimation {
+            0% {
+                opacity: 1;
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 滚动容器 -->
+    <div class="scroll-container">
+            <!-- 进度条 -->
+    <div class="progress-bar">
+        <div class="progress-indicator"></div>
+    </div>
+
+        <div class="content">
+            <h2>滚动驱动动画示例</h2>
+            <p>这个示例展示了如何使用scroll-timeline-name创建基于滚动的动画。</p>
+            <p>主要特点：</p>
+            <ul>
+                <li>顶部有一个进度条，随着滚动逐渐填充</li>
+                <li>右下角有一个提示框，会随着滚动逐渐消失</li>
+                <li>所有动画都是由滚动驱动的，不使用JavaScript</li>
+            </ul>
+            <p>继续往下滚动...</p>
+            <div style="height: 200px;"></div>
+            <p>注意观察进度条的变化...</p>
+            <div style="height: 200px;"></div>
+            <p>以及提示框是如何消失的...</p>
+            <div style="height: 200px;"></div>
+            <p>这就是滚动驱动动画的魅力！</p>
+        </div>
+            <!-- 滚动提示 -->
+    <div class="scroll-indicator">
+        向下滚动查看更多
+    </div>
+    </div>
+</body>
+
+
+<div id="container">
+    <div id="square"></div>
+    <div id="stretcher"></div>
+  </div>
+
+  
+  <style>
+    #container {
+  height: 300px;
+  overflow-y: scroll;
+  scroll-timeline-name: --squareTimeline;
+  position: relative;
+}
+#square {
+  background-color: deeppink;
+  width: 100px;
+  height: 100px;
+  margin-top: 100px;
+  animation-name: rotateAnimation;
+  animation-duration: 1ms; /* Firefox requires this to apply the animation */
+  animation-timeline: --squareTimeline;
+  position: absolute;
+  bottom: 0;
+}
+
+#stretcher {
+  height: 600px;
+  background: #dedede;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+  </style>
+</html>
