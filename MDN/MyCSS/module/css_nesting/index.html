@@ -1,0 +1,156 @@
+子选择器：
+<form>
+    <label for="name">姓名：
+      <input type="text" id="name" />
+    </label>
+    <label for="email">邮箱：</label>
+    <input type="text" id="email" />
+  </form>
+
+  邻接兄弟选择器：
+  <h2>标题</h2>
+<p>这是第一段。</p>
+<p>这是第二段。</p>
+
+组合选择器：
+<div class="notices">
+    <div class="notice">
+      <h2 class="notice-heading">注意</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+    <div class="notice warning">
+      <h2 class="warning-heading">警告</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+    <div class="notice success">
+      <h2 class="success-heading">成功</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+</div>
+  
+后附选择器
+<div class="wrapper">
+    <article class="card">
+      <h2>卡片 1</h2>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+    </article>
+    <article class="card featured">
+      <h2>卡片 2</h2>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+    </article>
+    <article class="card">
+      <h2>卡片 3</h2>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+    </article>
+  </div>
+  
+  优先级：
+  <b class="foo">
+    <c>蓝色文字</c>
+  </b>
+  
+  <style>
+    form,
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    input {
+    /* 不在 label 内的 input 的样式 */
+        border: tomato 2px solid;
+    }
+    label {
+    /* label 的样式 */
+    font-family: system-ui;
+    font-size: 1.25rem;
+        & input {
+            /* 在 label 内的 input 的样式 */
+            border: blue 2px dashed;
+        }
+    }
+
+    h2 {
+    color: tomato;
+    + p {
+        color: white;
+        background-color: black;
+    }
+    }
+
+
+    .notices {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 90%;
+        margin: auto;
+    }
+
+    .notice {
+        width: 90%;
+        justify-content: center;
+        border-radius: 1rem;
+        border: black solid 2px;
+        background-color: #ffc107;
+        color: black;
+        padding: 1rem;
+        .notice-heading::before {
+            /* 等同于 `.notice .notice-heading::before` */
+            content: "ℹ︎ ";
+        }
+        &.warning {
+            /* 等同于 `.notice.warning` */
+            background-color: #d81b60;
+            border-color: #d81b60;
+            color: white;
+            .warning-heading::before {
+            /* 等同于 `.notice.warning .warning-heading::before` */
+            content: "! ";
+            }
+        }
+        &.success {
+            /* 等同于 `.notice.success` */
+            background-color: #004d40;
+            border-color: #004d40;
+            color: white;
+            .success-heading::before {
+            /* 等同于 `.notice.success .success-heading::before` */
+            content: "✓ ";
+            }
+        }
+    }
+    .wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 0.25rem;
+        font-family: system-ui;
+    }
+
+    .card {
+        padding: 0.5rem;
+        border: 1px solid black;
+        border-radius: 0.5rem;
+        & h2 {
+            /* 等同于 `.card h2` */
+            color: slateblue;
+            .featured & {
+                /* 等同于 `:is(.card h2):is(.featured h2)` */
+                color: tomato;
+            }
+        }
+    }
+
+
+    #a, b {
+    & c {
+        color: blue;
+    }
+    }
+
+    .foo c {
+    color: red;
+    }
+
+
+  </style>
