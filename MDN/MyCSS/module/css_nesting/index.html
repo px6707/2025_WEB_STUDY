@@ -135,7 +135,10 @@
             /* 等同于 `.card h2` */
             color: slateblue;
             .featured & {
-                /* 等同于 `:is(.card h2):is(.featured h2)` */
+                /* 等同于 .card :is(.featured h2) 
+                等同于 `:is(.card h2):is(.featured h2)`
+                当然后边这个有几个场景用不到就是了
+                 */
                 color: tomato;
             }
         }
