@@ -1,0 +1,36 @@
+<style>
+    .container {
+      /* 启用滚动捕捉 */
+      scroll-snap-type: y mandatory;
+      /* 设置顶部padding为50px，用于避免固定导航栏遮挡内容 */
+      scroll-padding-top: 50px;
+      height: 100%;
+      box-sizing: border-box;
+      overflow-y: scroll;
+      padding-top: 50px;
+    }
+    
+    .snap-item {
+      /* 设置捕捉对齐点 */
+      scroll-snap-align: start;
+      height: 100vh;
+    }
+    
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background: #333;
+      color: white;
+    }
+    </style>
+    <div class="container">
+        <div class="fixed-header">固定导航栏</div>
+        <section class="snap-item">第一页</section>
+        <section class="snap-item">第二页</section>
+        <section class="snap-item">第三页</section>
+    </div>
+
+
