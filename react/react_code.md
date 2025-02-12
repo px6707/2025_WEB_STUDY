@@ -69,14 +69,13 @@ pre -> begin work -> complete work -> commit work
 准备阶段： 创建FiberRoot和RootFiber，创建workInProgress树的根节点
 begin work 阶段：自上而下进行处理，根据fiber.tag（组件类型）调用不同的处理函数，对比current 使用v-dom和current fiber生成子节点的workinprogress fiber，期间执行函数组件、类组件、diff子节点，对比后给要更新的节点打上effecttag（placement、deletion、placemengAndUpdate）
 complete work 阶段：自下而上进行处理，处理fiber节点的props，创建或更新DOM节点，处理事件监听，收集副作用（effectList），把需要更新的节点放入effectList链表，构建真实dom但是不挂载。
-CommitWork阶段：遍历effectList执行三个子阶段：Before mutation（DOM操作前),Mutation（DOM操作), Layout（DOM操作后）。将complete中产生的真实dom挂载
-```javascript
-// 简化的工作循环
-function workLoop(deadline) {
-  while (workInProgress) {
-    // 执行beginWork
-    workInProgress = performUnitOfWork(workInProgress);
-  }
+CommitWork阶段：遍历effectList执行三个子阶段：Before mutation（DOM操作前，处理事件、getSnapshotBeforeUpdate）,Mutation（DOM操作，处理effectLIst，更新界面，把workinProgressFiber变成currentFiber）, Layout（DOM操作后， 处理componentDidMount、componentDidUpdate、useLayoutEffect生命周期执行）。将complete中产生的真实dom挂载
+ ```javascript
+ // 简化的工作循环
+ function workLoop(deadline) {
+   while (workInProgress) {
+     // 执行beginWork
+     workInProgress = performUnitOfWork(workInProgress);
   
   if (!workInProgress && pendingCommit) {
     // 进入commit阶段
@@ -108,3 +107,88 @@ completeWork(fiber);
   return fiber.return
 }
 ```
+
+
+### 浏览器事件循环
+
+宏任务 微任务 reqeustAnimationFrame layout(渲染) requestIdleCallback
+
+如果宏任务特别长，就会导致卡顿，而在react中，宏任务可能会长的就是一直循环performUnitOfWork。为了优化这个问题，可以把宏任务分批执行，每批执行一定数量的宏任务，这样就不会导致卡顿了。
+1.  如何分批执行宏任务？ messageChannel 宏任务优先级合适，兼容性好
+2.  为什么其他方法不行
+  - promise 微任务，任务优先级太高，会在宏任务完成后立即执行，不会让出主线程
+  - generator 需要手动执行next()，无法自动调度，组织复杂
+  - setTimeout 最小延迟4ms，而一帧16.6ms，精确度不够，造成不必要的延迟
+  - requestIdleCallback 兼容性问题，执行频率不稳定,50ms渲染问题
+
+```js
+function testTask(){
+  return ()=>{
+    // performUnitOfWork()
+    return ()=>{
+      // performUnitOfWork()
+      return ()=>{
+        // performUnitOfWork()
+      }
+    }
+  }
+}
+
+// testTask函数每次执行都是一个performUnitofWork, 同时返回下一个任务
+let deadline
+const threshold = 5
+const now = ()=> performance.now()
+
+const queue = [{cb:testTask}]
+
+const peek = (arr)=>arr[0]
+
+const transition = []
+// 自执行函数, 返回messageChannel的postMessage函数 来触发transition中的函数执行
+// 避免每次都要创建messageChannel
+const postMessage = (function (){
+  const {port1, port2} = new MessageChannel()
+  port1.onmessage = ()=>transition.slice(0, 1).forEach(f=>f())
+  return ()=>port2.postMessage(undefined)
+})() 
+function startTransition(flush){
+  transition.push(flush)&&postMessage()
+}
+function flush(){
+  // 定义一个时间段5ms，如果执行不到5ms， 且没有高优先级输入，则继续执行
+  // 没过5ms，让出一次执行权，到下一个宏任务
+  deadline = now() + threshold
+  let task = peek(queue)
+
+  while(task&&!showYield()){
+    const {cb} = task
+    task.cb = null
+
+    const next = cb()
+    if(next&&typeof next === 'function'){
+      task.cb = next
+    }else{
+      queue.shift()
+    }
+    task = peek(queue)
+  }
+
+  // task没有或者showYield（到时间了）
+  task&&starrtTransition(flush)
+}
+
+function showYield(){
+  return now() > deadline || 高优先级输入
+}
+```
+
+
+### schedule和reconciler
+1. scheduler 调度器
+  - 任务优先级管理
+  - 事件分片
+  - 任务调度执行
+2. reconciler 协调器
+  - Fiber 树的构建和对比， vdom和current fiber对比，生成workinprogress fiber，打标机（正删改查）
+  -  生成真实DOM但不挂载，收集EffectList
+  - commit 阶段：把需要更新的节点挂载到DOM上，执行副作用函数
