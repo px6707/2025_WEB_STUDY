@@ -1,0 +1,104 @@
+<!-- 自定义组件1 -->
+<template id="card-component-template">
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="base" part="base">
+      <div part="header"><slot name="header_slot"></slot></div>
+      <div part="body"><slot name="body_slot"></slot></div>
+      <div part="footer"><slot name="footer_slot"></slot></div>
+    </div>
+  </template>
+  
+<card-component>
+    <p slot="header_slot">This is the header</p>
+    <p slot="body_slot">This is the body</p>
+    <p slot="footer_slot">This is the footer</p>
+</card-component>
+<!-- 自定义组件2 -->
+<template id="card-wrapper">
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <!-- 使用了自定义组件1 -->
+    <card-component exportparts="base, header, body">
+      <slot name="H" slot="header_slot"></slot>
+      <slot name="B" slot="body_slot"></slot>
+      <slot name="F" slot="footer_slot"></slot>
+    </card-component>
+  </template>
+
+<h2>Card wrapper</h2>
+
+<card-wrapper>
+  <p slot="H">This is the header</p>
+  <p slot="B">This is the body</p>
+  <p slot="F">This is the footer</p>
+</card-wrapper>
+
+<h2>Card component</h2>
+
+<card-component>
+  <p slot="header_slot">This is the header</p>
+  <p slot="body_slot">This is the body</p>
+  <p slot="footer_slot">This is the footer</p>
+</card-component>
+<style>
+h2 {
+  background-color: #dedede;
+}
+
+card-wrapper,
+card-component {
+  border: 1px dashed blue;
+  width: fit-content;
+}
+
+::part(body) {
+  color: red;
+  font-style: italic;
+}
+
+::part(header),
+::part(footer) {
+  font-weight: bold;
+}
+
+</style>
+<script>
+// 定义自定义组件1
+customElements.define(
+  "card-component",
+  class extends HTMLElement {
+    constructor() {
+      super(); // Always call super first in constructor
+      const cardComponent = document.getElementById(
+        "card-component-template",
+      ).content;
+      const shadowRoot = this.attachShadow({
+        mode: "open",
+      });
+      shadowRoot.appendChild(cardComponent.cloneNode(true));
+    }
+  },
+);
+// 定义自定义组件2
+customElements.define(
+  "card-wrapper",
+  class extends HTMLElement {
+    constructor() {
+      super(); // Always call super first in constructor
+      const cardWrapper = document.getElementById("card-wrapper").content;
+      const shadowRoot = this.attachShadow({
+        mode: "open",
+      });
+      shadowRoot.appendChild(cardWrapper.cloneNode(true));
+    }
+  },
+);
+
+</script>
