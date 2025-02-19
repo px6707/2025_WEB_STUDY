@@ -59,7 +59,7 @@ html的头部
     - no-referrer 不发送referrer头
     - no-referrer-when-downgrade 从 HTTPS 页面导航到 HTTP 页面时不发送 Referrer
     - origin 只发送源信息（协议、域名和端口）
-    - origin-when-cross-origin 同一请求发送完整URL，跨源请求只发送源信息
+    - origin-when-cross-origin 同源请求发送完整URL，跨源请求只发送源信息
     - same-origin 对于同源请求，发送 referrer；跨源请求不会包含 referrer 信息。
     - strict-origin HTTPS → HTTPS：发送源信息； HTTPS → HTTP：不发送 Referrer； HTTP → 任何协议：发送源信息
     - strict-origin-when-cross-origin 默认值，同源请求：发送完整 URL； 跨源 HTTPS → HTTPS：只发送源信息；跨源 HTTPS → HTTP：不发送 Referrer
