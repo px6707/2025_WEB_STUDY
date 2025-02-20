@@ -148,6 +148,7 @@ const transition = []
 // 避免每次都要创建messageChannel
 const postMessage = (function (){
   const {port1, port2} = new MessageChannel()
+  // 在下一帧的宏任务触发
   port1.onmessage = ()=>transition.slice(0, 1).forEach(f=>f())
   return ()=>port2.postMessage(undefined)
 })() 

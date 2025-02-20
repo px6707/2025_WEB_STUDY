@@ -1,5 +1,6 @@
 ## node
- 
+ js的服务端（非浏览器的）运行环境，基于v8引擎，封装了一下服务端的runtime，能够实现非常多的业务功能。
+ 也是单线程的，可以通过cluster/pm2等工具进行并发处理。
 
  ## 基础模块
  - file styletem fs 文件IO
@@ -31,7 +32,6 @@ Node.js 目前支持的字符编码包括：
 
 Buffer 对象用于表示固定长度的字节序列，在js中，Buffer 类是 Uint8Array 类的子类，8位无符号的整数数组 。并使用涵盖额外用例的方法对其进行扩展。Node.js API 在支持Buffer的地方也接受纯Unit8Array。虽然Buffer类在全局作用域内可用，但仍然建议使用import或者require 语句显式地引用它
 js:Unit8Array 表示一个8位无符号整数数组。内容初始化为0.一但建立，就可以使用对象的方法或者使用标准数组索引语法引用数组中的元素
-
 ```js
 const buf = Buffer.from('hello')
 const buf2 = Buffer.from('hello', 'utf-8')
