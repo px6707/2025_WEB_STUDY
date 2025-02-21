@@ -6,7 +6,7 @@
 
 同n微tcIO
 
-同步任务——>nextTick——>微任务-> timer -> pending callbacks -> idle,prepare -> poll -> check -> cloase back
+同步任务——>nextTick——>微任务-> timer -> pending callbacks -> idle,prepare -> poll -> check -> close back
 
 nodejs中事件6个阶段
 1. timer
@@ -39,7 +39,7 @@ fs.readFile('test.txt', (err, data) => {
 });
 ```
 5. check
-执行setImmediate回调，在poll阶段完成后立即执行
+执行setImmediate回调，在poll阶段完成后立即执行。这里有个特殊的地方，在当前时间循环中都可以立即向当前check阶段插入任务
 ```js
 setImmediate(() => {
     console.log('setImmediate');

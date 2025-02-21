@@ -78,9 +78,48 @@ npm run start 和直接 rollup -c 的区别是
 例如react组件库，不会dependencies安装react，需要peerDependencies react，要求使用者安装react
 
 ### bundleDependencies
+将列出的依赖包打包到你的模块中
+分发私有或修改过的包
+确保完全的版本一致性
+支持离线安装
+防止依赖包从 npm 仓库消失
 
 ### optionalDependencies
-
-### file
+可选依赖包，这些依赖安装失败，npm 会继续安装其他依赖，不会报错  
+包的功能不是必需的
+包在某些平台可能无法安装
+有替代方案的功能
+### files
+控制 npm publish 时包含哪些文件
+减小包的体积
+避免发布不必要的文件（如源码、测试文件等）
 
 ### workspace
+管理多包（monorepo）项目。
+```json
+{
+  "name": "my-project",
+  "workspaces": [
+    "packages/*"      // 指定工作区目录
+  ]
+}
+```
+统一管理多个相关包
+包之间可以相互依赖
+共享依赖，避免重复安装
+统一的版本控制
+
+
+### npm与yarn的区别
+npm 包扁平化下载，导致包可能得冲突
+npm：所有依赖平铺在 node_modules 下
+### pnpm
+pnpm：使用硬链接和符号链接，每个包都有独立的依赖空间
+严格的依赖隔离
+避免幽灵依赖
+节省磁盘空间
+安装速度快
+
+
+### npx
+临时执行 npm 包命令而不需要全局安装

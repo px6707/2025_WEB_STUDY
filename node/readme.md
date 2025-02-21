@@ -37,6 +37,12 @@ const buf = Buffer.from('hello')
 const buf2 = Buffer.from('hello', 'utf-8')
 const buf3 = Buffer.alloc(5)
 const buf4 = Buffer.allocUnsafe(5)
+
+const target = Buffer.alloc(20);  // 创建一个长度为20的空buffer
+
+// 把source复制到target中
+// 从target的0位置开始写入，从source的0位置复制到source.length位置
+source.copy(target, 0, 0, source.length);
 ```
 
 ### base编码原理

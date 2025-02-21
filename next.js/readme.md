@@ -89,7 +89,7 @@ Client Components
 
 
 #### hydration水合
-Hydration（水合）是React中一个重要的概念，让我详细解释：
+Hydration（水合）是React中一个重要的概念：
 
 Hydration的概念
 Hydration是指将服务端渲染的静态HTML与React在客户端的JavaScript代码"融合"的过程。这个过程会：
