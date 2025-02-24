@@ -93,3 +93,7 @@ word-warp是它的别称
 - break-all 可在任意字符间断行。
 ## word-spacing
 设置标签、单词之间的空格长度。
+
+
+### caret-color
+设置光标的颜色。
