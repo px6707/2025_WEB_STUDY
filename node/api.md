@@ -127,5 +127,17 @@ path.resolve('a', 'b', '/c')
 2. server.listen(3000,()=>{启动成功}) 监听端口，启动服务器
 
 
+```js
+const http = requore('http')
+const server = http.createServer((req, res)=>{
+    res.setHeader('contetn-type', 'texxt/html;charset=utf-8')
+    res.statusCode = 200
+    // 可以写多次
+    res.write("设置响应体")
+    // end只能有一个，且必须有一个，没有会报错
+    res.end('设置响应体')
+})
+```
+
 ### process
 1. process.memoryUsage() 内存使用情况
