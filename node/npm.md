@@ -123,3 +123,11 @@ pnpm：使用硬链接和符号链接，每个包都有独立的依赖空间
 
 ### npx
 临时执行 npm 包命令而不需要全局安装
+
+
+### nrm
+npm registry管理工具
+
+- npm i nrm
+- nrm use taobao
+- nrm ls 列出可用的registry
