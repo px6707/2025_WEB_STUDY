@@ -147,13 +147,13 @@ mark {
     - x-ua-compatible content 属性必须具有值 "IE=edge"。E浏览器兼容性设置
     - refresh 面重新加载的秒数—仅当 content 属性包含非负整数时。 页面重定向到指定链接的秒数——仅当 content 属性包含非负整数后跟字符串“;url=”和有效的 URL 时。
     ```html
-        <!-- 内容类型， 不设置页面加载速度变慢（因为需要检测编码） -->
+        <!-- 内容类型， 不设置页面加载速度变慢，更推荐使用chartset（因为需要检测编码） -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <!-- 刷新/重定向 -->
         <meta http-equiv="refresh" content="3;url=https://example.com">
 
-        <!-- 浏览器兼容性 -->
+        <!-- 浏览器兼容性，告诉IE使用最新的渲染引擎 -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
     ```
 - name name和content一起使用，给文档提供元数据name为元数据名称，content为值

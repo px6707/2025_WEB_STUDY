@@ -115,3 +115,112 @@ firefox 不支持
 代表了浏览器在支持文本片段技术时所滚动到的文字。它使得作者可以选择高亮一段文字的方式。
 高亮效果是临时的，页面刷新后会消失
 只有通过点击链接或手动输入 URL 时才会触发高亮
+
+
+### ::backdrop
+背景遮罩。一个与视口大小相同的盒子，会被渲染在任何顶层展示元素的下方
+backdrop在以下三种情况下会出现
+1. 全屏API，element.requestFullscreen()
+2. HTMLDialogElememt。showModal() 调用在顶层显示dialog元素
+3. HTMLElement.showPopvoer() 显示弹出框
+
+
+### ::cue
+firefox 不支持
+匹配所选原则的WebVTT提示，用于字幕
+
+
+### ::detail-content
+火狐、safari不支持
+匹配 detail 元素的内容
+```html
+<details>
+  <summary>click me</summary>
+  <p>这是详情</p>
+</details>
+<style>
+  details::details-content {
+    background-color: #a29bfe;
+  }
+</style>
+```
+
+### ::part
+匹配Shadow DOM中的part属性元素
+```html
+<template id="tabbed-custom-element">
+  <style type="text/css">
+    *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
+      padding: 1rem;
+    }
+    :host {
+      display: flex;
+    }
+  </style>
+  <div part="tab active">Tab 1</div>
+  <div part="tab">Tab 2</div>
+  <div part="tab">Tab 3</div>
+</template>
+
+<tabbed-custom-element></tabbed-custom-element>
+<style>
+  tabbed-custom-element::part(tab) {
+    color: #0c0dcc;
+    border-bottom: transparent solid 2px;
+  }
+
+  tabbed-custom-element::part(tab):hover {
+    background-color: #0c0d19;
+    border-color: #0c0d33;
+  }
+
+  tabbed-custom-element::part(tab):hover:active {
+    background-color: #0c0d33;
+  }
+
+  tabbed-custom-element::part(tab):focus {
+    box-shadow:
+      0 0 0 1px #0a84ff inset,
+      0 0 0 1px #0a84ff,
+      0 0 0 4px rgba(10, 132, 255, 0.3);
+  }
+
+  tabbed-custom-element::part(active) {
+    color: #0060df;
+    border-color: #0a84ff !important;
+  }
+
+</style>
+<script>
+  let template = document.querySelector("#tabbed-custom-element");
+globalThis.customElements.define(
+  template.id,
+  class extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: "open" });
+      this.shadowRoot.appendChild(template.content);
+    }
+  },
+);
+
+</script>
+```
+
+### ::slotted
+放在插槽中的元素
+```css
+/* 选择插槽内容任意元素 */
+::slotted(*) {
+  font-weight: bold;
+}
+
+/* 选择插槽内的任意 <span> 元素 */
+::slotted(span) {
+  font-weight: bold;
+}
+
+```
