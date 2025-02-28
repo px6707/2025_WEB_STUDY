@@ -192,3 +192,119 @@ h1:has(+ p) {
 匹配每个具有 href 属性的本地链接，如锚点 #target
 
 
+### :modal
+打开的modal元素
+
+### :muted
+只有safari支持
+静音状态的video或者audio
+
+### :not()
+匹配不符合括号中选择器的元素
+> tip
+1. :not(*) 永远不会匹配任何元素，因为 * 会匹配所有元素
+2. #foo:not(#bar) 和#foo 都匹配相同的元素，但是却提高了优先级
+3. :not 的优先级由其中最高的优先级确定
+4. 后代选择器结合， body :not(table) a 仍将应用 <table> 中的链接，以为tr、th等都能匹配 :not(table) 部分。
+5. 如果括号中有无效选择器，则整个规则无需，可以使用:is使表达式有效
+
+### :nth-child()
+根据父元素内的所有兄弟节点的位置选择子元素
+- odd 奇数
+- even 偶数
+```css
+/* 匹配前三个设置了 class="important" 的列表项。 */
+:nth-child(-n + 3 of li.important) {
+}
+/* 该选择器会匹配属于前三个子元素，且与选择器 li.important 匹配的列表项。 */
+li.important:nth-child(-n + 3) {
+}
+/* 第 7 个元素。 */
+:nth-child(7)
+/* 5的倍数 */
+:nth-child(5n)
+/* 前三个 */
+:nth-child(-n+3)
+/* 第七个及其之后的元素 */
+:nth-child(n+7)
+```
+
+### :nth-last-child()
+兄弟节点中从后往前匹配处于某些位置的元素
+
+### :nth-last-of-type()
+于元素在相同类型（标签名）的兄弟元素中相对最后一个元素的位置来匹配元素。
+
+### :nth-of-type()
+基于相同类型（标签名称）的兄弟元素中的位置来匹配元素。
+
+
+### :only-child
+没有任何兄弟元素的元素
+
+```css
+/* 等同于，既是第一个也是最后一个 */
+:first-child:last-child 
+```
+
+
+### only-of-type
+任意一个元素，这个元素没有其他相同类型的兄弟元素。
+
+
+### :open
+支持很差
+打开状态的元素，包括details、input的面板展示时，例如color ，select 等元素在打开时
+
+
+### :optional
+任何未设置required 的input、select、textarea
+
+### :out-of-range
+一个 <input> 元素，其当前值处于属性 min 和 max 限定的范围外
+
+### :past
+火狐不支持
+个时间维度的伪类，它将匹配任何完全出现在匹配 :current 的元素之前的元素。例如，在WebVTT显示的字幕视频中。
+
+
+### :paused
+只有safari支持
+匹配暂停的video或者audio
+
+
+### :picture-in-picture
+火狐不支持
+当前处于画中画模式的元素
+
+
+### :placeholder-shown
+当前显示占位符的input或者textarea
+
+### :playing
+只有safari支持
+匹配正在播放的video或者audio
+
+### :popover-open
+处于显示状态的弹窗元素（即具有 popover 属性的弹窗元素）
+
+
+### :read-only
+元素不可被用户编辑的状态
+
+
+### :read-write
+代表一个元素（例如可输入文本的 input 元素）可以被用户编辑。
+
+
+### :required
+任何设置了 required 属性的 <input>、<select> 或 <textarea> 元素。
+
+
+### :right
+火狐不支持
+与@page组合使用，匹配打印文档时右侧页
+
+
+### :root
+匹配文档树的根元素。对于 HTML 来说，:root 表示 <html> 元素，除了优先级更高之外，与 html 选择器相同。
