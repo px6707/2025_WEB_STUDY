@@ -8,6 +8,20 @@ CSS条件规则模块定义CSS媒体并支持查询，使您能够定义仅在�
 @when
 @else
 ```
+
+### @charset
+指定样式使用的字符编码
+@charset "UTF-8";
+必须是样式表中的第一个元素，而前面不得有任何字符。如果有多个 @charset @ 规则被声明，只有第一个会被使用
+
+
+### @color-profile
+定义并命名了一个颜色配置文件，稍后可以在 color() 函数中用于指定颜色。
+没有实现这个功能的浏览器。
+@color-profile "sRGB";
+
+
+
 ### @media
 可用于基于一个或多个媒体查询的结果来应用样式表的一部分。
 #### 媒体类型：
@@ -62,7 +76,7 @@ CSS条件规则模块定义CSS媒体并支持查询，使您能够定义仅在�
 }
 ```
 
-#### @supports 
+### @supports 
 指定依赖于浏览器中的一个或多个特定的 CSS 功能的支持声明。这被称为特性查询。该规则可以放在代码的顶层，也可以嵌套在任何其他条件组规则中。
 
 1. 最基本的支持条件就是 CSS 声明，也就是一个 CSS 属性后跟一个值，中间用冒号分开。
@@ -96,8 +110,17 @@ CSS条件规则模块定义CSS媒体并支持查询，使您能够定义仅在�
 }
 ```
 
+### @container
+匹配容器，如果不指定容器名称，则匹配所有容器。
+凡是写在@container规则中的CSS语句，都会寻找最近的容器元素，并进行匹配。
+```css
+/* 是my-layout容器，且宽度小于500px */
+@container my-layout (max-width: 500px) {
+    
+}
+```
 
-### container-name
+#### container-name
 指定了@container at-rule在容器查询中使用的查询容器名称列表。
 - none 没有名称
 - <custom-ident> 的字符串名称，允许多个名称，用空格分隔
@@ -119,13 +142,13 @@ CSS条件规则模块定义CSS媒体并支持查询，使您能够定义仅在�
 }
 ```
 
-### container-type
+#### container-type
 用于定义一个容器的类型，以便于在使用 CSS Container Queries 时进行响应式设计。这个属性的主要作用是指示一个元素是否是一个容器，以及它的行为如何影响其子元素的样式。
-- size  这个值表示容器的大小会影响其子元素的样式。使用 size 时，容器的宽度和高度都会被考虑。
-- inline-size 表示容器的宽度会影响其子元素的样式。使用此值时，只有容器的宽度会被用于容器查询，而高度则不影响子元素。
-- normal 默认值，表示该元素不是一个容器。使用此值时，容器的大小不会影响其子元素的样式。
+- size  监控宽度和高度变化
+- inline-size 只监控宽度变化
+- normal 默认值，不作为容器
 
-### container
+#### container
 将元素建立为查询容器，并指定容器查询中使用的包含上下文的名称和类型。
 是 container-name 和 container-type 的组合，用于指定查询容器的名称和类型。
 ```css
@@ -134,18 +157,8 @@ CSS条件规则模块定义CSS媒体并支持查询，使您能够定义仅在�
 }
 ```
 
-### @container
-匹配容器，如果不指定容器名称，则匹配所有容器。
-凡是写在@container规则中的CSS语句，都会寻找最近的容器元素，并进行匹配。
-```css
-/* 是my-layout容器，且宽度小于500px */
-@container my-layout (max-width: 500px) {
-    
-}
-```
-
-
-### @property 注册自定义属性
+### @property 
+注册自定义属性，可以通过css也可以通过js注册
 ```css
 @property --property-name {
   syntax: "<color>";
@@ -154,3 +167,200 @@ CSS条件规则模块定义CSS媒体并支持查询，使您能够定义仅在�
 }
 
 ```
+```javascript
+window.CSS.registerProperty({
+  name: '--my-var',
+  syntax: '<length>',
+  inherits: false,
+  initialValue: '0px'
+})
+```
+>**注意** 注册属性的一个好处是，浏览器现在知道如何通过过渡等方式处理你的自定义属性！当属性没有注册时，浏览器不知道如何处理它，因此它假定可以使用任何值，因此无法对其进行动画处理。不过，当属性有注册的语法时，浏览器可以围绕该语法进行优化，包括为其添加动画！
+已经注册的属性不能被更新，重新注册会报错，表示已经被定义
+
+
+### @counter-style
+自定义计数器样式
+@counter-style <counter-style-name> {
+    system: <counter system>
+    symbols: <counter symbols>
+    additive-symbols: <additive-symbols>
+    negative: <negative symbol>
+    prefix: <prefix>
+    suffix: <suffix>
+    range: <range>
+    pad: <padding>
+    speak-as: <speak-as>
+    fallback: <counter-style-name>
+}
+
+### @font-face
+指定字体
+```css
+@font-face {
+    font-family: 'MyFont';  指定引用字体的名称
+    src: url('font.eot'); 兼容IE9，必须单独写一个src
+    /* IE6-IE8 需要使用?#iefix 后缀 而不支持embedded-opentype 的浏览器会跳过eof源*/
+    src: url('font.eot?#iefix') format('embedded-opentype'),
+        url('font.woff2') format('woff2'),
+        url('font.woff') format('woff'),
+        url('font.ttf') format('truetype'),
+        url('font.svg#font') format('svg');
+}
+```
+解释：
+1. 当有多个src时，后面的会覆盖前面的，但IE9会优先使用不带format的src
+2. IE9-IE8 需要使用?#iefix 后缀 而使用url('font.eot?#iefix') format('embedded-opentype')
+3. 其他浏览器通过format使用自己可用的格式，例如woff2
+
+
+大多数现代浏览器支持WOFF或者WOFF2 web open font format version1、2 开放字体格式版本1、2
+低版本IE只支持 EOF embedded open font 嵌入式开放类型
+
+
+### @font-feature-values
+设置OpenType字体的特性值，允许我们为不同的字体定义通用名称的特性。这使得在使用不同字体时能够保持一致的字体特性设置。
+
+
+### @font-palette-values
+
+
+### @import
+用于从其他样式表导入样式规则。
+@import url("fineprint.css") print;
+
+
+### @keyframes
+动画序列中定义关键帧
+```css
+@keyframes slidein {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+```
+
+
+### @layer
+用于声明级联层，帮助我们更好地控制样式的优先级和组织样式代码。它允许我们将CSS规则分组到不同的层中，并明确控制这些层之间的优先级。
+```css
+/* 1. 声明层 */
+ /* 优先级从低到高 */
+@layer base, components, utilities; 
+
+/* 2. 在层中定义样式 */
+@layer base {
+  p { color: black; }
+}
+
+@layer components {
+  .button { color: blue; }
+}
+
+@layer utilities {
+  .text-red { color: red; }
+}
+
+/* 嵌套 */
+@layer framework {
+  @layer layout {
+  }
+}
+/* 向嵌套规则中添加样式 */
+@layer framework.layout {
+  p {
+    margin-block: 1rem;
+  }
+}
+/* 匿名层 */
+@layer{
+
+}
+
+/* 通过@import 导入@layer中的样式 */
+@import "layer.css" layer(theme);
+```
+1. 优先级 后声明的优先级高
+2. 可嵌套 使用点号向嵌套规则中添加样式
+3. 匿名层
+4. 层样式可以通过@import 导入
+
+
+### @namespace
+定义XML命名空间。它主要用于处理包含多个命名空间的XML文档的样式，比如在处理HTML和SVG混合内容时。
+区分不同技术规范中的同名元素
+在XML应用中提供样式隔离
+@namespace的使用相对较少，主要在处理XML或SVG内容时才会用到。
+```css
+/* 定义命名空间 */
+@namespace url(http://www.w3.org/1999/xhtml); /* HTML命名空间 */
+@namespace svg url(http://www.w3.org/2000/svg); /* SVG命名空间 */
+
+/* 应用样式 */
+/* HTML中的圆 */
+circle {
+    background-color: blue;
+}
+
+/* SVG中的圆 */
+svg|circle {
+    fill: red;
+}
+```
+
+
+### @page
+修改打印页面的不同方面,修改页面的尺寸、方向和页边距。
+
+### @position-try
+尝试不同的定位策略。它主要用于处理元素的定位问题，特别是在复杂布局中。
+与position-anchor配合，尝试把弹窗放在不同位置
+火狐 safri不支持
+
+
+### @scope
+火狐不支持
+用于限制样式的作用范围，让样式只在特定的DOM树范围内生效。这对于组件化开发和样式隔离特别有用。
+```css
+/* 基本用法 */
+@scope (.component) {
+  /* 样式只在.component内生效 */
+  .button { color: blue; }
+}
+
+/* 指定范围边界 */
+@scope (.component) to (.sub-component) {
+  /* 样式在.component内生效，但不会影响.sub-component内的元素 */
+  .text { color: red; }
+}
+```
+
+### @starting-style
+火狐不支持
+定义元素的初始样式状态，特别适用于处理元素出现时的动画效果。它允许我们设置元素在进入页面时的起始样式，而不影响其最终状态。，
+```css
+@starting-style {
+  /* 定义元素的初始样式 */
+}
+
+.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.5s ease-out;
+}
+
+@starting-style {
+  .slide-in {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+```
+
+### @view-transition
+火狐不支持
+跨文档导航的情况下， @view-transition  CSS at规则用于选择在当前文档和目标文档中进行视图转换。
