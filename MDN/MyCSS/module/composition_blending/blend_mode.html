@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            margin: 20px;
+            position: relative;
+            background: #ff6b6b;  /* 底层红色 */
+            display: inline-block;
+        }
+
+        .circle {
+            width: 150px;
+            height: 150px;
+            background: #4ecdc4;  /* 上层青色 */
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 不同的混合模式 */
+        .multiply .circle {
+            mix-blend-mode: multiply;  /* 正片叠底 - 颜色会变暗 */
+        }
+
+        .screen .circle {
+            mix-blend-mode: screen;    /* 滤色 - 颜色会变亮 */
+        }
+
+        .overlay .circle {
+            mix-blend-mode: overlay;   /* 叠加 - 增强对比度 */
+        }
+
+        .difference .circle {
+            mix-blend-mode: difference; /* 差值 - 产生反色效果 */
+        }
+
+        /* 标签样式 */
+        .label {
+            text-align: center;
+            margin-top: 210px;
+            font-family: Arial;
+        }
+    </style>
+</head>
+<body>
+    <!-- 正常显示（无混合） -->
+    <div class="box">
+        <div class="circle"></div>
+        <div class="label">Normal</div>
+    </div>
+
+    <!-- 正片叠底 -->
+    <div class="box multiply">
+        <div class="circle"></div>
+        <div class="label">Multiply</div>
+    </div>
+
+    <!-- 滤色 -->
+    <div class="box screen">
+        <div class="circle"></div>
+        <div class="label">Screen</div>
+    </div>
+
+    <!-- 叠加 -->
+    <div class="box overlay">
+        <div class="circle"></div>
+        <div class="label">Overlay</div>
+    </div>
+
+    <!-- 差值 -->
+    <div class="box difference">
+        <div class="circle"></div>
+        <div class="label">Difference</div>
+    </div>
+</body>
+</html>
