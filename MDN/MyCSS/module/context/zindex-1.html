@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 50px;
+            /* 使用半透明背景 */
+            background: rgba(200, 200, 200, 0.5);
+            border: 2px solid #333;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .negative {
+            background: rgba(255, 0, 0, 0.8);
+            z-index: -1;
+            left: 50px;
+            top: 50px;
+        }
+
+        .auto {
+            background: rgba(0, 255, 0, 0.8);
+            left: 100px;
+            top: 100px;
+        }
+
+        .positive {
+            background: rgba(0, 0, 255, 0.8);
+            z-index: 1;
+            left: 150px;
+            top: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box negative">
+            z-index: -1
+        </div>
+        <div class="box auto">
+            z-index: auto
+        </div>
+        <div class="box positive">
+            z-index: 1
+        </div>
+    </div>
+</body>
+</html>

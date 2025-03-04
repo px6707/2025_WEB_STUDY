@@ -43,8 +43,8 @@ HTML 元素沿着其相对于用户的一条虚构的 z 轴排开，层叠上下
     - isolation 值为isolate的元素(是否创建层叠上下文)
     - contain 为layout、paint或 strict、content的元素
 2. 层叠顺序
-    - 背景和边框
     - 负z-index的元素
+    - 背景和边框
     - 块级和子
     - 浮动盒子
     - 内联盒子

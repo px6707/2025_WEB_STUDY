@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            position: relative;
+            height: 600px;
+            margin: 50px;
+            border: 2px solid #333;
+            background: #f0f0f0;
+        }
+
+        .box {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            border: 3px solid black;
+        }
+
+        /* 负z-index定位元素 */
+        .negative-z {
+            position: absolute;
+            background: #ff6b6b;
+            z-index: -1;
+            left: 50px;
+            top: 50px;
+        }
+
+        /* 普通块级元素 */
+        .block {
+            background: #4ecdc4;
+            margin: 20px;
+        }
+
+        /* 浮动元素 */
+        .float {
+            background: #45b7d1;
+            float: left;
+            margin: 20px;
+        }
+
+        /* 内联元素 */
+        .inline {
+            display: inline-block;
+            background: #96ceb4;
+            margin: 20px;
+        }
+
+        /* z-index:auto 定位元素 */
+        .auto-z {
+            position: relative;
+            background: #d4a5a5;
+            left: 100px;
+            top: -150px;
+        }
+
+        /* 正z-index定位元素 */
+        .positive-z {
+            position: absolute;
+            background: #9b59b6;
+            z-index: 1;
+            right: 50px;
+            top: 200px;
+        }
+
+        /* 说明标签 */
+        .label {
+            position: absolute;
+            left: 10px;
+            color: #333;
+            font-family: Arial;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. 负z-index -->
+        <div class="box negative-z">
+            z-index: -1
+        </div>
+
+        <!-- 2. 普通块级元素 -->
+        <div class="box block">
+            块级元素
+        </div>
+
+        <!-- 3. 浮动元素 -->
+        <div class="box float">
+            浮动元素
+        </div>
+
+        <!-- 4. 内联元素 -->
+        <div class="box inline">
+            内联元素
+        </div>
+
+        <!-- 5. z-index:auto -->
+        <div class="box auto-z">
+            z-index: auto
+        </div>
+
+        <!-- 6. 正z-index -->
+        <div class="box positive-z">
+            z-index: 1
+        </div>
+    </div>
+
+    <!-- 层叠顺序说明 -->
+    <div style="margin: 20px;">
+        层叠顺序（从下到上）：<br>
+        1. 负z-index定位元素<br>
+        2. 块级元素<br>
+        3. 浮动元素<br>
+        4. 内联元素<br>
+        5. z-index:auto定位元素<br>
+        6. 正z-index定位元素
+    </div>
+</body>
+</html>
