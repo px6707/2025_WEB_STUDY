@@ -143,3 +143,121 @@ counter(countername, upper-roman)
  ### cubic-bezier()
 使用三次Bézier曲线创建一个平滑的过渡。
 接受以下4个参数，分别表示两个控制点的坐标。
+
+
+### device-cmyk()
+CSS 颜色函数，用于指定 CMYK（青色、品红色、黄色、黑色）颜色值。这是一个用于印刷的颜色模型。
+
+### drop-shadow()
+给元素添加阴影效果
+```css
+/* drop-shadow(offset-x offset-y blur-radius color) */
+filter: drop-shadow(0 0 2px #000);
+```
+
+### element
+都不支持
+
+### elipse()
+椭圆
+```css
+/* 椭圆 短边半径 长边半径 圆心*/
+clip-path: ellipse(50% 50% at 50% 50%);
+```
+### env()
+用于访问环境变量值，特别是在处理移动设备安全区域时很有用。
+```css
+/* 安全区域内边距 */
+env(safe-area-inset-top)
+env(safe-area-inset-right)
+env(safe-area-inset-bottom)
+env(safe-area-inset-left)
+```
+### exp()
+指数型函数，以数值为参数，返回数学常数 e 的指定次方
+
+### fit-content()
+将给定大小夹紧为可用大小 根据公式 min(maximum size, max(minimum size, argument)).
+元素会：
+至少和最小内容宽度一样宽
+最大不超过指定的参数值
+优先适应实际内容大小
+
+>用于grid布局中控制裂开，自适应内容的容器
+### grayscale()
+ 对图片进行灰度转换
+### hsl()
+函数标记根据其色相、饱和度和明度来表达 sRGB 颜色。可选的 alpha 成分代表了颜色的透明度。
+background: hsl(0.3turn 60% 45% / .7);
+### hue-rotate()
+ CSS 滤镜函数，用于调整元素的色相角度，实现颜色旋转效果。
+### hwb()
+ CSS 颜色函数，使用色相(Hue)、白度(Whiteness)、黑度(Blackness)来定义颜色。
+ hwb(色相 白度 黑度 [/ 透明度])
+
+### hypot
+指数型函数，返回其参数平方和的平方根。
+若提供单个参数，则结果为其输入值的绝对值。hypot(2em) 和 hypot(-2em) 均解析为 2em。
+
+### image-set()
+用于根据设备特性（如分辨率、像素密度）提供最适合的图片版本。
+```css
+/* 根据设备像素比提供不同分辨率的图片 */
+.image {
+    background-image: image-set(
+        "logo-1x.png" 1x,    /* 普通屏幕 */
+        "logo-2x.png" 2x,    /* 视网膜屏幕 */
+        "logo-3x.png" 3x     /* 超高清屏幕 */
+    );
+    background-image: image-set(
+        "pic.avif" type("image/avif"),   /* 如果浏览器支持AVIF，优先使用 */
+        "pic.webp" type("image/webp"),   /* 如果不支持AVIF但支持WebP，使用WebP */
+        "pic.jpg" type("image/jpeg")     /* 如果都不支持，使用JPEG */
+    );
+}
+
+```
+### image()
+无浏览器实现，用于创建图像值，提供比 url() 更多的功能和选项。
+
+### inset()
+定义了一个矩形，其位于参考框的每一边内侧的指定的距离处。
+```css
+/* 矩形距离上下边20%距离，左右边30%距离，圆角为20px */
+clip-path: inset(20% 30% round 20px);
+```
+### invert()
+ 滤镜函数，用于反转元素的颜色。
+
+### lab()
+ 在 CIE L*a*b* 颜色空间中表示指定颜色。Lab 表示人可见的全部颜色的范围
+ lab(亮度 a轴 b轴 [/ 透明度])
+
+### layer()
+使用import 把样式导入到分层中
+@import "index.css" layer(layer-name)
+### lch()
+号 lch() 在 LCH 颜色空间中表示指定颜色。此函数记号与 lab() 有相同的 L 轴，但使用极坐标 C（色度）和 H（色相）。
+### lingt-dark()
+CSS 颜色函数，用于根据用户的颜色方案偏好（浅色/深色模式）选择不同的值。
+```css
+ color: light-dark(#000000, #ffffff);  /* 浅色模式黑色文本，深色模式白色文本 */
+```
+### liner-gradient()
+创建一个由两种或多种颜色沿一条直线进行线性过渡的图像
+```css
+body {
+  background: linear-gradient(135deg, orange 60%, cyan);
+}
+```
+### linear()
+ CSS 缓动函数，用于创建线性过渡效果，通常用在动画和过渡中。
+动画或过渡以恒定速度进行 没有加速或减速效果 整个过程速度保持不变
+
+
+### log()
+数型函数，返回某数的对数。
+```css
+/* 以2为底，8的对数 = 3 */
+width: calc(100px * log(8, 2));
+```
