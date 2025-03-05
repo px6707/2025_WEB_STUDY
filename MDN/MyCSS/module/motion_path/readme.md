@@ -65,7 +65,9 @@ offset-path: path('M-70,-40 C-70,70 70,70 70,-40');
 
 
 ### ray()
-
+默认情况下，元素会被旋转，使得元素中的文本文本流的方向与ray的角度一致。
+也就是说，如果ray(0)， 射线向上，则文本流向上，文字则横躺。
+如果使用sffset-rotate 可以指定旋转方向，设置 offset-rotate: 0deg 将删除 ray() 应用的任何旋转，使元素的内联轴与文本流的方向对齐。
 ```css
 offset-path: ray(angle size? contain?);
 ```
