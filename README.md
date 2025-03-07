@@ -21,3 +21,6 @@ rxjs
 
 webrtc
 
+dexie.js 前端indexdb库
+better=-scroll 滚动条优化
+slickjs 轮播组件
