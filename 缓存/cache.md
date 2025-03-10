@@ -6,13 +6,13 @@
 3. 如果未命中或者已过期，进入协商缓存阶段
 
 ```js
-// 强缓存配置
-// 缓存一小时
+// 缓存配置
+// 缓存一小时 强缓存 或者 设置了有效的Expries也是强缓存
 Cache-Control: max-age=3600
 
 // 禁止缓存
 Cache-Control: no-store
-// 每次需要验证，进入协商缓存阶段
+// 每次需要验证，即协商缓存
 Cache-Control: no-cache
 // 仅浏览器可缓存
 Cache-Control: private
