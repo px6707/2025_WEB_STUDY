@@ -2,7 +2,7 @@ function myNew(func, ...params){
     var obj = {}
     obj.__proto__ = func.prototype
     var result = func.apply(obj, params)
-    return typeof result === 'object' ? result : obj
+    return typeof result === 'object'&&result !== null ? result : obj
 }
 
 

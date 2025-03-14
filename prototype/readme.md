@@ -30,7 +30,8 @@ function Dog(name) {
     Animal.call(this, name);
 }
 
-// 建立继承关系
+// 建立继承关系，这种方式不继承constructor也不继承实例属性， 即Animal的name不会集成到Dog
+// 需要再 Dog中 Animal.call(this) 来集成实例属性
 Dog.prototype = Object.create(Animal.prototype);
 Dog.prototype.constructor = Dog;
 
