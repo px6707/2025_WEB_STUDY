@@ -13,11 +13,11 @@ let initState = {
 const counterReducer = (state, action) => {
     switch(action.type) {
         case "ADD_COUNT": 
-            return { count: state.count + 1 }
+            return { ...state, count: state.count + 1 }
         case "MINUS_COUNT": 
-            return { count: state.count - 1 }
+            return { ...state, count: state.count - 1 }
         case "RESET_COUNT": 
-            return { count: 0 }
+            return { ...state, count: 0 }
         default:
             return state;
     }

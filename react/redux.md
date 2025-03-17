@@ -470,3 +470,9 @@ yield put(fetchTodosSuccess(todos));  // 派发 { type: 'FETCH_TODOS_SUCCESS', p
     - 异步中间件（thunk/saga）放前面是为了先处理异步操作
     - logger 放最后可以记录到所有中间件处理后的最终状态
     - 这样在调试时可以看到完整的状态变化过程
+
+### redux hooks
+  ### useSelector
+  ### useDispatch
+  ### combineReducers
+  ### connect(mapStateToProps, mapDispatchToProps)

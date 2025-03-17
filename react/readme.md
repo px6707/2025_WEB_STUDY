@@ -22,12 +22,21 @@
 
 ### useEffect
 回调函数不能使用async await
+返回一个函数，用于销毁
+执行时机是，依赖变化后，先执行清理函数，再执行useEffect的callback
+对于模拟挂载生命周期，其清理函数的执行时机是组件销毁时
+
+在浏览器绘制之后执行，不会阻塞浏览器绘制
 
 ### useLayoutEffect
 dom更新之后，浏览器绘制之前执行，如果要修改DOM，用useLayoutEffect，否则使用useEffect
+因为在绘制之前执行可以防止闪烁
+同步执行，会阻塞浏览器绘制
+
 
 ### useInsertionEffect
 dom更新之前执行，对于css-in-js的场景下，解决性能问题
+因为需要在dom更新之前执行，所以插入js可以避免重排
 
 
 ### useEffect 是如何模拟生命周期的
@@ -40,14 +49,17 @@ componentDidMount
 
 #### 更新阶段
 UNSAFE_componentWillReceiveProps 如果已经有了getDerivedStateFromProps,这个生命周期不执行。可以使用this
-getDerivedStateFromProps
+getDerivedStateFromProps 合并state，当有新的props、state的时候执行
 shouldComponentUpdate 返回bool，决定组件是否更新
 UNSAFE_componnetWillUpdate
 render
+getSnapshotBeforeUpdate 获取更新之前的一些信息（比如 preState prePRops）return的值会作为第三个参数传给componentDidUpdate。比如获取之前滚动条位置，在页面更新后维持滚动条位置
 componentDidUpdate 不要代用setState，会死循环
 
+#### 销毁阶段
+componentWillUnmount
 
-生命周期模拟
+##### 生命周期模拟
 ```React
 useEffect(()=>{
     console.log('componentDidMount')
@@ -67,13 +79,9 @@ useEffect(()=>{
 },[props])
 ```
 
-#### 销毁阶段
-componentWillUnmount
-
-
 
 ### Ref
-
+拿到元素节点
 ```React
 import React, {createRef, Component} from 'react'
 export default class ClassRef extends Component{
@@ -159,6 +167,15 @@ function Child2(){
     const context = useContext(ThemeContext)
     return <div style={{color:context.color}}></div>
 }
+// 仅类组件
+class Child3 extends React.Component {
+  static contextType = ThemeContext;
+  
+  render() {
+    const { theme } = this.context;
+    return <header className={`header-${theme}`} />;
+  }
+}
 ```
 ### useCallback
 
@@ -212,6 +229,7 @@ function App() {
 ```
 ### useDeferredValue
 另一个用于性能优化的 Hook，它允许我们延迟更新某些不那么重要的部分。
+参数多次变化，只有最好一次变化能够应用的子组件上，当参数频繁变化时，useDeferredValue 会跳过中间状态，只应用最新的值
 ```js
 function SearchResults() {
   const [query, setQuery] = useState('');
@@ -339,3 +357,36 @@ function handleClick() {
 > 在 React 18 中，即使不使用 createRoot，你也可以使用 startTransition
 但是，如果使用旧的 ReactDOM.render，startTransition 将不会启用并发特性
 也就是说，代码还是会执行，但不会获得并发渲染的优势（中断和恢复渲染的能力）.
+
+
+### suspense
+用于处理异步组件或者use加载场景
+```js
+import { lazy } from 'react';
+// 懒加载组件
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+
+// use 数据加载场景
+function UserProfile({ id }) {
+  const user = use(fetchUser(id));
+  return <div>{user.name}</div>;
+}
+
+function App() {
+  return (
+    <Suspense 
+      fallback={<div>加载用户信息...</div>}
+    >
+      <UserProfile id="123" />
+    </Suspense>
+  );
+}
+```

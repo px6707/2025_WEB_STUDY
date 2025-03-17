@@ -9,7 +9,7 @@ export default function ReduxTest() {
         store.subscribe(() => {
             // 如果data发生改变的时候，我这里就执行了
             let curData = store.getState();
-            // 闭包陷阱
+
             setCount(curData.counter.count);
         })
     }, [])

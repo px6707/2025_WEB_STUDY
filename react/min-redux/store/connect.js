@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import ReduxContext from './context';
 
-export const connect = (mapStateToProps, mapDispatchTrops) => MyComponent => {
+export const connect = (mapStateToProps, mapDispatchToProps) => MyComponent => {
     return function ConnectComponent(props) {
 
         const _store = useContext(ReduxContext);
@@ -18,7 +18,7 @@ export const connect = (mapStateToProps, mapDispatchTrops) => MyComponent => {
                 store => <MyComponent 
                     {...props}
                     {...mapStateToProps(store.getState())}
-                    {...mapDispatchTrops(store.dispatch)}
+                    {...mapDispatchToProps(store.dispatch)}
                 />
             }
         </ReduxContext.Consumer>
