@@ -1,3 +1,4 @@
+// 声明式路由
 function App() {
     return (
         <BrowserRouter>
@@ -8,6 +9,7 @@ function App() {
         </BrowserRouter>
     );
 }
+// 配置式路由
 const routes=[
     {
         path:'/',
@@ -18,11 +20,32 @@ const routes=[
         element:<About/>
     }
 ]
-function App2(){
+function App2(){ 
     return useRoutes(routes)
 }
 
+// 嵌套路由
+<Routes>
+    <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Settings />} />
+    </Route>
+</Routes>
 
+// 在父组件中使用Outlet渲染子路由
+function Dashboard() {
+    return (
+        <div>
+            <h1>Dashboard</h1>
+            <Outlet /> {/* 子路由在这里渲染 */}
+        </div>
+    );
+}
+
+// 路由调整
+// Link 不触发页面刷新
+// NavLink <NavLink to="/about" class={({avtive})=>active?'active':'inactive'}/> 选中的颜色
+ 
 const NavigationConstext=createContext({})
 const LocationContext=createContext({})
 

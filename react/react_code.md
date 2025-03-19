@@ -190,6 +190,6 @@ function showYield(){
   - 事件分片
   - 任务调度执行
 2. reconciler 协调器
-  - Fiber 树的构建和对比， vdom和current fiber对比，生成workinprogress fiber，打标机（正删改查）
+  - Fiber 树的构建和对比， vdom和current fiber对比，生成workinprogress fiber，打标记（正删改查）
   -  生成真实DOM但不挂载，收集EffectList
   - commit 阶段：把需要更新的节点挂载到DOM上，执行副作用函数
