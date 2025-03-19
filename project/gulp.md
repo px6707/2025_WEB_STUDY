@@ -64,4 +64,10 @@ gulp.task('build', gulp.series(
     ),
     'rev'     // 3. 最后生成版本号
 ));
+// 异步操作
+gulp.task('async', (done)=>{
+    setTimeout(()=>{
+        done()
+    },1000)
+})
 ```

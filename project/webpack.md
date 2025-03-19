@@ -70,6 +70,26 @@ module.exports={
             }
         ]
     },
+    optimization:{
+        splitChunks:{
+            chunks:'all',
+            cacheGroups:{
+                // node_modules 分成一个chunk
+                vendor:{
+                    name:'vendor',
+                    test:/[\\/]node_modules[\\/]/,
+                    priority:-10
+                },
+                commons:{
+                    name:'commons',
+                    // 最小分包
+                    minChunks:2,
+                    // 优先级
+                    priority:5
+                }
+            }
+        }
+    }
 
 }
 ```
