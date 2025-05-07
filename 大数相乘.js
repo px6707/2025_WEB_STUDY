@@ -1,3 +1,9 @@
+/**
+ * Multiply two large numbers given as strings.
+ * @param {string} a the first number
+ * @param {string} b the second number
+ * @returns {string} the product of a and b
+ */
 const multiplied = (a, b) => {
     if(a === '0' || b === '0') return '0';
     let m = a.length, n = b.length;
