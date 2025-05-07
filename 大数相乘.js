@@ -26,6 +26,12 @@ const multiplied = (a, b) => {
 console.log(multiplied('6', '12345'))
 
 // 1. 大数加法
+/**
+ * Adds two large numbers given as strings.
+ * @param {string} num1 the first number
+ * @param {string} num2 the second number
+ * @returns {string} the sum of num1 and num2
+ */
 function addLargeNumbers(num1, num2) {
     let i = num1.length - 1;
     let j = num2.length - 1;
